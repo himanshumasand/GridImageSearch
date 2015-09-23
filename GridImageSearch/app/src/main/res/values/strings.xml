@@ -3,4 +3,6 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="search_prompt">Enter search query</string>
+    <string name="search_label">Search</string>
 </resources>
