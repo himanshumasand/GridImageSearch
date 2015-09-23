@@ -92,9 +92,14 @@ public class SearchActivity extends ActionBarActivity {
                 JSONArray resultsJSON = null;
                 searchResults = new ArrayList<>();
                 try {
-                    resultsJSON = response.getJSONObject("responseData").getJSONArray("results");
-                    for(int i = 0; i < resultsJSON.length(); i++) {
-                        searchResults.add(new SearchResult(resultsJSON.getJSONObject(i)));
+                    if(response.getInt("responseStatus") == 200 && response.getJSONObject("responseData") != null && response.getJSONObject("responseData").has("results") && response.getJSONObject("responseData").getJSONArray("results") != null) {
+                        resultsJSON = response.getJSONObject("responseData").getJSONArray("results");
+                        for(int i = 0; i < resultsJSON.length(); i++) {
+                            searchResults.add(new SearchResult(resultsJSON.getJSONObject(i)));
+                        }
+                    }
+                    else {
+                        Log.i("DEBUG", "ERROR " + response.getInt("responseStatus") +": Response data is null. Reason: " + response.getString("responseDetails"));
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
