@@ -25,6 +25,7 @@ import himanshumasand.github.com.gridimagesearch.SearchResult;
 public class SearchResultsAdapter extends ArrayAdapter<SearchResult> {
 
     private static class ViewHolder {
+        TextView title;
         ImageView image;
     }
 
@@ -42,6 +43,7 @@ public class SearchResultsAdapter extends ArrayAdapter<SearchResult> {
             viewHolder = new ViewHolder();
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_search_result, parent, false);
             viewHolder.image = (ImageView) convertView.findViewById(R.id.ivSearchResult);
+            viewHolder.title = (TextView) convertView.findViewById(R.id.tvTitle);
 
             convertView.setTag(viewHolder);
         }
@@ -50,7 +52,8 @@ public class SearchResultsAdapter extends ArrayAdapter<SearchResult> {
         }
 
         viewHolder.image.setImageResource(0);
-        Picasso.with(getContext()).load(result.getUrl()).into(viewHolder.image);
+        Picasso.with(getContext()).load(result.getTbUrl()).into(viewHolder.image);
+        viewHolder.title.setText(result.getTitle());
 
         return convertView;
     }
