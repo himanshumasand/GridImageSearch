@@ -27,6 +27,9 @@ import java.util.ArrayList;
 public class SearchActivity extends ActionBarActivity {
 
     public static final String URL_GET_RESULTS = "https://ajax.googleapis.com/ajax/services/search/images";
+    public static final int NUM_RESULTS_PER_PAGE = 8;
+
+    private String query;
 
     private EditText etQuery;
     private GridView gvResults;
@@ -37,7 +40,6 @@ public class SearchActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-
         setupViews();
     }
 
@@ -47,44 +49,25 @@ public class SearchActivity extends ActionBarActivity {
         searchResults = new ArrayList<>();
         searchResultsAdapter = new SearchResultsAdapter(this, searchResults);
         gvResults.setAdapter(searchResultsAdapter);
+        gvResults.setOnScrollListener(new EndlessScrollListener() {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount) {
+                fetchImageResults(page);
+            }
+        });
     }
 
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_search, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+    private void  fetchImageResults(int page) {
+        if(page == 0) {
+            searchResultsAdapter.clear();
         }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    public void onImageSearch(View v) {
-        String query = etQuery.getText().toString();
-        fetchImageResults(query);
-        Toast.makeText(this, "Search for: " + query, Toast.LENGTH_SHORT).show();
-    }
-
-    private void  fetchImageResults(String query) {
         AsyncHttpClient client = new AsyncHttpClient();
         client.addHeader("Accept-Encoding", "identity"); // disable gzip
         RequestParams params = new RequestParams();
         params.put("v", "1.0");
         params.put("q", query);
-        params.put("rsz", "8");
+        params.put("rsz", String.valueOf(NUM_RESULTS_PER_PAGE));
+        params.put("start", String.valueOf(page * NUM_RESULTS_PER_PAGE));
         client.get(URL_GET_RESULTS, params, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
@@ -104,7 +87,6 @@ public class SearchActivity extends ActionBarActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                searchResultsAdapter.clear();
                 searchResultsAdapter.addAll(searchResults);
                 searchResultsAdapter.notifyDataSetChanged();
             }
@@ -117,5 +99,10 @@ public class SearchActivity extends ActionBarActivity {
         });
     }
 
+    public void onImageSearch(View v) {
+        query = etQuery.getText().toString();
+        fetchImageResults(0);
+        Toast.makeText(this, "Search for: " + query, Toast.LENGTH_SHORT).show();
+    }
 
 }
