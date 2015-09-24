@@ -22,9 +22,21 @@
         android:text="@string/search_label"
         android:id="@+id/btSearch"
         android:onClick="onImageSearch"
+        android:layout_toLeftOf="@+id/ibSettings"
+        android:layout_toStartOf="@+id/ibSettings"
+        />
+
+    <ImageButton
+        android:layout_width="52dp"
+        android:layout_height="54dp"
+        android:id="@+id/ibSettings"
+        android:src="@drawable/ic_settings"
+        android:onClick="onSettingsButtonClicked"
+        android:scaleType="fitXY"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:layout_above="@+id/gvResults" />
 
     <GridView
         android:layout_width="match_parent"

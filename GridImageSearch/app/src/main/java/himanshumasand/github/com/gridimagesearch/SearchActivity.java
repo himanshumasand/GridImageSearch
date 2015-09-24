@@ -1,5 +1,6 @@
 package himanshumasand.github.com.gridimagesearch;
 
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -24,12 +25,13 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 
-public class SearchActivity extends ActionBarActivity {
+public class SearchActivity extends ActionBarActivity implements SearchSettingsDialog.SearchSettingsDialogListener{
 
     public static final String URL_GET_RESULTS = "https://ajax.googleapis.com/ajax/services/search/images";
     public static final int NUM_RESULTS_PER_PAGE = 8;
 
     private String query;
+    private SearchSettings settings = new SearchSettings();
 
     private EditText etQuery;
     private GridView gvResults;
@@ -68,6 +70,12 @@ public class SearchActivity extends ActionBarActivity {
         params.put("q", query);
         params.put("rsz", String.valueOf(NUM_RESULTS_PER_PAGE));
         params.put("start", String.valueOf(page * NUM_RESULTS_PER_PAGE));
+        if(settings != null) {
+            params.put("imgsz", settings.getSizeParameter());
+            params.put("imgcolor", settings.getColorParameter());
+            params.put("imgtype", settings.getTypeParameter());
+            params.put("as_sitesearch", settings.site);
+        }
         client.get(URL_GET_RESULTS, params, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
@@ -105,4 +113,14 @@ public class SearchActivity extends ActionBarActivity {
         Toast.makeText(this, "Search for: " + query, Toast.LENGTH_SHORT).show();
     }
 
+    public void onSettingsButtonClicked(View v) {
+        FragmentManager fm = getSupportFragmentManager();
+        SearchSettingsDialog searchSettingsDialog = SearchSettingsDialog.newInstance(settings);
+        searchSettingsDialog.show(fm, "fragment_settings");
+    }
+
+    @Override
+    public void onSettingsChange(SearchSettings newSettings) {
+        settings = newSettings;
+    }
 }

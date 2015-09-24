@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/label_size"
+        android:id="@+id/tvSizeLabel"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignBottom="@+id/spnSize"
+        android:gravity="center_vertical" />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/spnSize"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/tvSizeLabel"
+        android:layout_toEndOf="@+id/tvSizeLabel"
+        android:spinnerMode="dropdown"
+        android:entries="@array/size_array" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/label_color"
+        android:id="@+id/tvColorLabel"
+        android:layout_below="@+id/tvSizeLabel"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignBottom="@+id/spnColor"
+        android:gravity="center_vertical" />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/spnColor"
+        android:layout_below="@+id/spnSize"
+        android:layout_toRightOf="@+id/tvColorLabel"
+        android:layout_toEndOf="@+id/tvColorLabel"
+        android:entries="@array/color_array" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/label_type"
+        android:id="@+id/tvTypeLabel"
+        android:layout_below="@+id/tvColorLabel"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignBottom="@+id/spnType"
+        android:gravity="center_vertical" />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/spnType"
+        android:layout_below="@+id/spnColor"
+        android:layout_toRightOf="@+id/tvTypeLabel"
+        android:layout_toEndOf="@+id/tvTypeLabel"
+        android:entries="@array/type_array" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/label_site"
+        android:id="@+id/tvSiteLabel"
+        android:layout_below="@+id/tvTypeLabel"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignBottom="@+id/etSite"
+        android:gravity="center_vertical" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/etSite"
+        android:hint="Enter site URL"
+        android:layout_below="@id/spnType"
+        android:layout_toRightOf="@+id/tvSiteLabel"
+        android:layout_toEndOf="@+id/tvSiteLabel" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/label_save"
+        android:id="@+id/btnSave"
+        android:layout_below="@+id/tvSiteLabel"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+
+</RelativeLayout>
