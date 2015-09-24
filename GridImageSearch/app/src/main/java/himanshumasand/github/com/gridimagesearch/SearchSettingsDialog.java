@@ -27,12 +27,6 @@ public class SearchSettingsDialog extends DialogFragment implements View.OnClick
         void onSettingsChange(SearchSettings newSettings);
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        getDialog().getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
-    }
-
     public static SearchSettingsDialog newInstance(SearchSettings settings) {
         SearchSettingsDialog frag = new SearchSettingsDialog();
         Bundle args = new Bundle();

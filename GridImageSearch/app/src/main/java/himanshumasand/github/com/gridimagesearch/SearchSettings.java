@@ -13,9 +13,9 @@ public class SearchSettings {
     public int type;
     public String site;
 
-    private String[] sizeParams = {"icon", "small", "xxlarge", "huge"};
-    private String[] colorParams = {"black", "blue", "brown", "gray"};
-    private String[] typeParams = {"face", "photo", "clipart", "lineart"};
+    private String[] sizeParams = {"", "icon", "small", "xxlarge", "huge"};
+    private String[] colorParams = {"", "black", "blue", "brown", "gray"};
+    private String[] typeParams = {"", "face", "photo", "clipart", "lineart"};
 
     public SearchSettings() {
         this.size = 0;

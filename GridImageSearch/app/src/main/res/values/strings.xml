@@ -12,6 +12,7 @@
     <string name="label_save">Save</string>
 
     <string-array name="size_array">
+        <item>-- Unset --</item>
         <item>Small</item>
         <item>Medium</item>
         <item>Large</item>
@@ -19,6 +20,7 @@
     </string-array>
 
     <string-array name="color_array">
+        <item>-- Unset --</item>
         <item>Black</item>
         <item>Blue</item>
         <item>Brown</item>
@@ -26,6 +28,7 @@
     </string-array>
 
     <string-array name="type_array">
+        <item>-- Unset --</item>
         <item>Face</item>
         <item>Photo</item>
         <item>Clipart</item>
