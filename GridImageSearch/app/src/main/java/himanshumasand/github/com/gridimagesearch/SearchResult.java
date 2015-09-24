@@ -1,12 +1,15 @@
 package himanshumasand.github.com.gridimagesearch;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
  * Created by Himanshu on 9/20/2015.
  */
-public class SearchResult {
+public class SearchResult implements Parcelable {
 
     private String title;
     private String tbUrl;
@@ -27,7 +30,7 @@ public class SearchResult {
             this.title = result.getString("titleNoFormatting");
             this.tbUrl = result.getString("tbUrl");
             this.url = result.getString("url");
-            this.pageUrl = result.getString("visibleUrl");
+            this.pageUrl = result.getString("originalContextUrl");
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -42,4 +45,33 @@ public class SearchResult {
 
     public String getPageUrl() { return pageUrl; }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.title);
+        dest.writeString(this.tbUrl);
+        dest.writeString(this.url);
+        dest.writeString(this.pageUrl);
+    }
+
+    protected SearchResult(Parcel in) {
+        this.title = in.readString();
+        this.tbUrl = in.readString();
+        this.url = in.readString();
+        this.pageUrl = in.readString();
+    }
+
+    public static final Parcelable.Creator<SearchResult> CREATOR = new Parcelable.Creator<SearchResult>() {
+        public SearchResult createFromParcel(Parcel source) {
+            return new SearchResult(source);
+        }
+
+        public SearchResult[] newArray(int size) {
+            return new SearchResult[size];
+        }
+    };
 }

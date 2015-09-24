@@ -34,5 +34,6 @@
         <item>Clipart</item>
         <item>Line Art</item>
     </string-array>
+    <string name="title_activity_image_details">ImageDetailsActivity</string>
 
 </resources>

@@ -1,5 +1,6 @@
 package himanshumasand.github.com.gridimagesearch;
 
+import android.content.Intent;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Adapter;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.GridView;
@@ -57,6 +59,16 @@ public class SearchActivity extends ActionBarActivity implements SearchSettingsD
                 fetchImageResults(page);
             }
         });
+        gvResults.setOnItemClickListener(
+                new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        Intent imageIntent = new Intent(SearchActivity.this, ImageDetailsActivity.class);
+                        imageIntent.putExtra("image", (SearchResult) gvResults.getItemAtPosition(position));
+                        startActivityForResult(imageIntent, 1);
+                    }
+                }
+        );
     }
 
     private void  fetchImageResults(int page) {
