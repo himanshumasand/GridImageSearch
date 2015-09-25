@@ -1,11 +1,13 @@
 package himanshumasand.github.com.gridimagesearch;
 
 import android.annotation.TargetApi;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.os.Debug;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBarActivity;
@@ -25,7 +27,6 @@ import android.widget.TextView;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
-import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
@@ -62,9 +63,20 @@ public class SearchActivity extends ActionBarActivity implements SearchSettingsD
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+
         tvRecentSeachesHeader = (TextView) findViewById(R.id.tvRecentsHeader);
         tvRecentSeachesHeader.setVisibility(View.INVISIBLE);
-        fetchBackgroundImage();
+        TextView tvNoConnection = (TextView) findViewById(R.id.tvNoConnection);
+        tvNoConnection.setVisibility(View.INVISIBLE);
+
+        if(isNetworkAvailable()) {
+            fetchBackgroundImage();
+        }
+        else {
+            setupViews();
+            hideRecentSearches();
+            tvNoConnection.setVisibility(View.VISIBLE);
+        }
     }
 
     private void setupViews() {
@@ -149,51 +161,53 @@ public class SearchActivity extends ActionBarActivity implements SearchSettingsD
     }
 
     private void  fetchImageResults(int page) {
-        if(page == 0) {
-            searchResultsAdapter.clear();
-        }
-        AsyncHttpClient client = new AsyncHttpClient();
-        client.addHeader("Accept-Encoding", "identity"); // disable gzip
-        RequestParams params = new RequestParams();
-        params.put("v", "1.0");
-        params.put("q", query);
-        params.put("rsz", String.valueOf(NUM_RESULTS_PER_PAGE));
-        params.put("start", String.valueOf(page * NUM_RESULTS_PER_PAGE));
-        if(settings != null) {
-            params.put("imgsz", settings.getSizeParameter());
-            params.put("imgcolor", settings.getColorParameter());
-            params.put("imgtype", settings.getTypeParameter());
-            params.put("as_sitesearch", settings.site);
-        }
-        client.get(URL_GET_RESULTS, params, new JsonHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                Log.i("DEBUG", "RECEIVED: Data for search query: " + response.toString());
-                JSONArray resultsJSON = null;
-                searchResults = new ArrayList<>();
-                try {
-                    if (response.getInt("responseStatus") == 200 && response.getJSONObject("responseData") != null && response.getJSONObject("responseData").has("results") && response.getJSONObject("responseData").getJSONArray("results") != null) {
-                        resultsJSON = response.getJSONObject("responseData").getJSONArray("results");
-                        for (int i = 0; i < resultsJSON.length(); i++) {
-                            searchResults.add(new SearchResult(resultsJSON.getJSONObject(i)));
+        if(isNetworkAvailable()) {
+            if (page == 0) {
+                searchResultsAdapter.clear();
+            }
+            AsyncHttpClient client = new AsyncHttpClient();
+            client.addHeader("Accept-Encoding", "identity"); // disable gzip
+            RequestParams params = new RequestParams();
+            params.put("v", "1.0");
+            params.put("q", query);
+            params.put("rsz", String.valueOf(NUM_RESULTS_PER_PAGE));
+            params.put("start", String.valueOf(page * NUM_RESULTS_PER_PAGE));
+            if (settings != null) {
+                params.put("imgsz", settings.getSizeParameter());
+                params.put("imgcolor", settings.getColorParameter());
+                params.put("imgtype", settings.getTypeParameter());
+                params.put("as_sitesearch", settings.site);
+            }
+            client.get(URL_GET_RESULTS, params, new JsonHttpResponseHandler() {
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                    Log.i("DEBUG", "RECEIVED: Data for search query: " + response.toString());
+                    JSONArray resultsJSON = null;
+                    searchResults = new ArrayList<>();
+                    try {
+                        if (response.getInt("responseStatus") == 200 && response.getJSONObject("responseData") != null && response.getJSONObject("responseData").has("results") && response.getJSONObject("responseData").getJSONArray("results") != null) {
+                            resultsJSON = response.getJSONObject("responseData").getJSONArray("results");
+                            for (int i = 0; i < resultsJSON.length(); i++) {
+                                searchResults.add(new SearchResult(resultsJSON.getJSONObject(i)));
+                            }
+                        } else {
+                            Log.i("DEBUG", "ERROR " + response.getInt("responseStatus") + ": Response data is null. Reason: " + response.getString("responseDetails"));
                         }
-                    } else {
-                        Log.i("DEBUG", "ERROR " + response.getInt("responseStatus") + ": Response data is null. Reason: " + response.getString("responseDetails"));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                    hideRecentSearches();
+                    searchResultsAdapter.addAll(searchResults);
+                    searchResultsAdapter.notifyDataSetChanged();
                 }
-                hideRecentSearches();
-                searchResultsAdapter.addAll(searchResults);
-                searchResultsAdapter.notifyDataSetChanged();
-            }
 
-            @Override
-            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                //Log Error
-                Log.i("DEBUG", "ERROR: " + responseString);
-            }
-        });
+                @Override
+                public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                    //Log Error
+                    Log.i("DEBUG", "ERROR: " + responseString);
+                }
+            });
+        }
     }
 
     private void  fetchBackgroundImage() {
@@ -319,5 +333,12 @@ public class SearchActivity extends ActionBarActivity implements SearchSettingsD
                 // use placeholder drawable if desired
             }
         });
+    }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 }
