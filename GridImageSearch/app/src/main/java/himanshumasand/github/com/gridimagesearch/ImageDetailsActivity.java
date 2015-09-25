@@ -23,6 +23,7 @@ public class ImageDetailsActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image_details);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         ImageView ivImage = (ImageView) findViewById(R.id.ivImageLarge);
         TextView tvTitle = (TextView) findViewById(R.id.tvTitle);
