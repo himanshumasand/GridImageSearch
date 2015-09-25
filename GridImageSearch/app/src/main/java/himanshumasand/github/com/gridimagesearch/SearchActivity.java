@@ -52,6 +52,7 @@ public class SearchActivity extends ActionBarActivity implements SearchSettingsD
     ArrayList<String> recentSearches;
     ArrayAdapter<String> recentSearchesAdapter;
 
+    private TextView tvRecentSeachesHeader;
     private ListView lvRecentSearches;
     private GridView gvResults;
     private ArrayList<SearchResult> searchResults;
@@ -61,11 +62,15 @@ public class SearchActivity extends ActionBarActivity implements SearchSettingsD
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-        setupGridView();
-        setupListView();
+        tvRecentSeachesHeader = (TextView) findViewById(R.id.tvRecentsHeader);
+        tvRecentSeachesHeader.setVisibility(View.INVISIBLE);
         fetchBackgroundImage();
     }
 
+    private void setupViews() {
+        setupGridView();
+        setupListView();
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -131,6 +136,7 @@ public class SearchActivity extends ActionBarActivity implements SearchSettingsD
     }
 
     private void setupListView() {
+        tvRecentSeachesHeader.setVisibility(View.VISIBLE);
         lvRecentSearches = (ListView) findViewById(R.id.lvRecents);
         readItems();
         recentSearchesAdapter = new ArrayAdapter<>(this,
@@ -300,6 +306,7 @@ public class SearchActivity extends ActionBarActivity implements SearchSettingsD
             public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
                 layout.setBackground(new BitmapDrawable(getResources(), bitmap));
                 Log.i("DEBUG", "URL: " + url);
+                setupViews();
             }
 
             @Override
