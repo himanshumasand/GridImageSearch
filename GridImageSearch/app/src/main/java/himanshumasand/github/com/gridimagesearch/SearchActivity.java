@@ -1,6 +1,11 @@
 package himanshumasand.github.com.gridimagesearch;
 
+import android.annotation.TargetApi;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.os.Debug;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBarActivity;
@@ -10,16 +15,19 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.http.Header;
@@ -30,6 +38,7 @@ import org.json.JSONObject;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Random;
 
 
 public class SearchActivity extends ActionBarActivity implements SearchSettingsDialog.SearchSettingsDialogListener{
@@ -54,6 +63,7 @@ public class SearchActivity extends ActionBarActivity implements SearchSettingsD
         setContentView(R.layout.activity_search);
         setupGridView();
         setupListView();
+        fetchBackgroundImage();
     }
 
     @Override
@@ -180,6 +190,44 @@ public class SearchActivity extends ActionBarActivity implements SearchSettingsD
         });
     }
 
+    private void  fetchBackgroundImage() {
+        AsyncHttpClient client = new AsyncHttpClient();
+        client.addHeader("Accept-Encoding", "identity"); // disable gzip
+        RequestParams params = new RequestParams();
+        params.put("v", "1.0");
+        params.put("q", "Scenery");
+        params.put("rsz", 1);
+        params.put("imgsz", "xxlarge");
+        Random r = new Random();
+        int rand = r.nextInt(50 - 1) + 1;
+        params.put("start", rand);
+        Log.i("DEBUG", "start = " + rand);
+        client.get(URL_GET_RESULTS, params, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                Log.i("DEBUG", "RECEIVED: Data for search query: " + response.toString());
+                JSONArray resultsJSON = null;
+                try {
+                    if (response.getInt("responseStatus") == 200 && response.getJSONObject("responseData") != null && response.getJSONObject("responseData").has("results") && response.getJSONObject("responseData").getJSONArray("results") != null) {
+                        resultsJSON = response.getJSONObject("responseData").getJSONArray("results");
+                        String bgImageUrl = resultsJSON.getJSONObject(0).getString("url");
+                        loadImageFromPicasso(bgImageUrl);
+                    } else {
+                        Log.i("DEBUG", "ERROR " + response.getInt("responseStatus") + ": Response data is null. Reason: " + response.getString("responseDetails"));
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                //Log Error
+                Log.i("DEBUG", "ERROR: " + responseString);
+            }
+        });
+    }
+
     public void openSettings() {
         FragmentManager fm = getSupportFragmentManager();
         SearchSettingsDialog searchSettingsDialog = SearchSettingsDialog.newInstance(settings);
@@ -228,12 +276,41 @@ public class SearchActivity extends ActionBarActivity implements SearchSettingsD
     }
 
     private void hideRecentSearches() {
-        TextView tvRecentSeachesHeader = (TextView) findViewById(R.id.tvRecentsHeader);
-        if(tvRecentSeachesHeader != null) {
-            tvRecentSeachesHeader.setVisibility(View.INVISIBLE);
+        RelativeLayout rl = (RelativeLayout) findViewById(R.id.rlRecentSearches);
+
+        if(rl != null) {
+            rl.setVisibility(View.INVISIBLE);
         }
-        if(lvRecentSearches != null) {
-            lvRecentSearches.setVisibility(View.INVISIBLE);
-        }
+
+//        TextView tvRecentSeachesHeader = (TextView) findViewById(R.id.tvRecentsHeader);
+//        if(tvRecentSeachesHeader != null) {
+//            tvRecentSeachesHeader.setVisibility(View.INVISIBLE);
+//        }
+//        if(lvRecentSearches != null) {
+//            lvRecentSearches.setVisibility(View.INVISIBLE);
+//        }
+
+    }
+
+    private void loadImageFromPicasso(final String url) {
+        final RelativeLayout layout =(RelativeLayout)findViewById(R.id.background);
+        Picasso.with(this).load(url).into(new Target() {
+            @Override
+            @TargetApi(16)
+            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                layout.setBackground(new BitmapDrawable(getResources(), bitmap));
+                Log.i("DEBUG", "URL: " + url);
+            }
+
+            @Override
+            public void onBitmapFailed(Drawable errorDrawable) {
+                // use error drawable if desired
+            }
+
+            @Override
+            public void onPrepareLoad(Drawable placeHolderDrawable) {
+                // use placeholder drawable if desired
+            }
+        });
     }
 }
