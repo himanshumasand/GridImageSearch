@@ -2,8 +2,10 @@ package himanshumasand.github.com.gridimagesearch;
 
 import android.content.Intent;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -35,7 +37,6 @@ public class SearchActivity extends ActionBarActivity implements SearchSettingsD
     private String query;
     private SearchSettings settings = new SearchSettings();
 
-    private EditText etQuery;
     private GridView gvResults;
     private ArrayList<SearchResult> searchResults;
     private SearchResultsAdapter searchResultsAdapter;
@@ -44,11 +45,47 @@ public class SearchActivity extends ActionBarActivity implements SearchSettingsD
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-        setupViews();
+        setupGridView();
     }
 
-    private void setupViews() {
-        etQuery = (EditText) findViewById(R.id.etQuery);
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_search, menu);
+        MenuItem searchItem = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String q) {
+                // perform query here
+                query = q;
+                fetchImageResults(0);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle presses on the action bar items
+        switch (item.getItemId()) {
+            case R.id.action_search:
+                return true;
+            case R.id.action_settings:
+                openSettings();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void setupGridView() {
         gvResults = (GridView) findViewById(R.id.gvResults);
         searchResults = new ArrayList<>();
         searchResultsAdapter = new SearchResultsAdapter(this, searchResults);
@@ -119,13 +156,7 @@ public class SearchActivity extends ActionBarActivity implements SearchSettingsD
         });
     }
 
-    public void onImageSearch(View v) {
-        query = etQuery.getText().toString();
-        fetchImageResults(0);
-        Toast.makeText(this, "Search for: " + query, Toast.LENGTH_SHORT).show();
-    }
-
-    public void onSettingsButtonClicked(View v) {
+    public void openSettings() {
         FragmentManager fm = getSupportFragmentManager();
         SearchSettingsDialog searchSettingsDialog = SearchSettingsDialog.newInstance(settings);
         searchSettingsDialog.show(fm, "fragment_settings");
@@ -134,5 +165,6 @@ public class SearchActivity extends ActionBarActivity implements SearchSettingsD
     @Override
     public void onSettingsChange(SearchSettings newSettings) {
         settings = newSettings;
+        fetchImageResults(0);
     }
 }
