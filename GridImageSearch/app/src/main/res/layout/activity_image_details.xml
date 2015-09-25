@@ -1,60 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="40dp"
     android:background="#ff434343" >
 
-    <ImageView
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/ivImageLarge"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:scaleType="fitXY"
-        android:adjustViewBounds="true"
-        android:focusableInTouchMode="false"
-        android:minHeight="100dp" />
+        android:padding="40dp" >
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Title"
-        android:textStyle="bold"
-        android:textColor="#ffffff"
-        android:id="@+id/tvTitle"
-        android:layout_below="@+id/ivImageLarge"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:textSize="25sp" />
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/ivImageLarge"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:scaleType="fitXY"
+            android:adjustViewBounds="true"
+            android:focusableInTouchMode="false"
+            android:minHeight="100dp" />
 
-    <Button
-        android:layout_width="110dp"
-        android:layout_height="wrap_content"
-        android:text="Visit Page"
-        android:textColor="#ffd6d6d6"
-        android:background="#ff5d5d5d"
-        android:id="@+id/btnPage"
-        android:onClick="onVisitPageButtonClicked"
-        android:layout_below="@+id/tvTitle"
-        android:layout_marginTop="30dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginStart="15dp"
-        android:layout_alignLeft="@+id/ivImageLarge"
-        android:layout_alignStart="@+id/ivImageLarge" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Title"
+            android:textStyle="bold"
+            android:textColor="#ffffff"
+            android:id="@+id/tvTitle"
+            android:layout_below="@+id/ivImageLarge"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:textSize="25sp" />
 
-    <Button
-        android:layout_width="110dp"
-        android:layout_height="wrap_content"
-        android:text="View Image"
-        android:textColor="#ffd6d6d6"
-        android:background="#ff5d5d5d"
-        android:id="@+id/btnImage"
-        android:onClick="onViewImageButtonClicked"
-        android:layout_marginRight="15dp"
-        android:layout_marginEnd="15dp"
-        android:layout_alignTop="@+id/btnPage"
-        android:layout_alignRight="@+id/ivImageLarge"
-        android:layout_alignEnd="@+id/ivImageLarge" />
-</RelativeLayout>
+        <Button
+            android:layout_width="110dp"
+            android:layout_height="wrap_content"
+            android:text="Visit Page"
+            android:textColor="#ffd6d6d6"
+            android:background="#ff5d5d5d"
+            android:id="@+id/btnPage"
+            android:onClick="onVisitPageButtonClicked"
+            android:layout_below="@+id/tvTitle"
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp"
+            android:layout_alignLeft="@+id/ivImageLarge"
+            android:layout_alignStart="@+id/ivImageLarge" />
+
+        <Button
+            android:layout_width="110dp"
+            android:layout_height="wrap_content"
+            android:text="View Image"
+            android:textColor="#ffd6d6d6"
+            android:background="#ff5d5d5d"
+            android:id="@+id/btnImage"
+            android:onClick="onViewImageButtonClicked"
+            android:layout_marginRight="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_alignTop="@+id/btnPage"
+            android:layout_alignRight="@+id/ivImageLarge"
+            android:layout_alignEnd="@+id/ivImageLarge" />
+    </RelativeLayout>
+</ScrollView>
