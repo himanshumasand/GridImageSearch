@@ -95,7 +95,6 @@ public class SearchActivity extends ActionBarActivity implements SearchSettingsD
                 // perform query here
                 query = q;
                 fetchImageResults(0);
-                addToRecentSearches();
                 return true;
             }
 
@@ -155,6 +154,15 @@ public class SearchActivity extends ActionBarActivity implements SearchSettingsD
                 android.R.layout.simple_list_item_1, recentSearches);
         lvRecentSearches.setAdapter(recentSearchesAdapter);
 
+        lvRecentSearches.setOnItemClickListener(
+                new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        query = recentSearches.get(position);
+                        fetchImageResults(0);
+                    }
+                });
+
         if(recentSearches.size() <= 0) {
             hideRecentSearches();
         }
@@ -163,6 +171,7 @@ public class SearchActivity extends ActionBarActivity implements SearchSettingsD
     private void  fetchImageResults(int page) {
         if(isNetworkAvailable()) {
             if (page == 0) {
+                addToRecentSearches();
                 searchResultsAdapter.clear();
             }
             AsyncHttpClient client = new AsyncHttpClient();
@@ -281,7 +290,7 @@ public class SearchActivity extends ActionBarActivity implements SearchSettingsD
     }
 
     private void addToRecentSearches() {
-        if(!recentSearches.contains(query)) {
+        if(recentSearches != null && !recentSearches.contains(query)) {
             recentSearches.add(query);
             recentSearchesAdapter.notifyDataSetChanged();
             writeItems();
