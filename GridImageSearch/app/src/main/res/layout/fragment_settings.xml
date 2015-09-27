@@ -11,43 +11,56 @@
     card_view:cardCornerRadius="2dp"
     card_view:cardElevation="4dp">
 
-        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:orientation="vertical"
         android:layout_gravity="center"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:paddingTop="20dp"
-        android:paddingBottom="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:text="Search Filter"
+            android:background="#ff1881ad"
+            android:textColor="#ffffff"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:id="@+id/tvSearchTitle"
+            android:paddingLeft="20dp"
+            android:gravity="center"
+            android:layout_marginBottom="20dp"
+            android:layout_centerHorizontal="true" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/label_size"
             android:id="@+id/tvSizeLabel"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_below="@+id/tvSearchTitle"
             android:layout_alignBottom="@+id/spnSize"
             android:gravity="center_vertical" />
 
         <Spinner
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
             android:id="@+id/spnSize"
-            android:spinnerMode="dropdown"
             android:entries="@array/size_array"
-            android:layout_alignParentTop="true"
-            android:layout_alignLeft="@+id/spnColor"
-            android:layout_alignStart="@+id/spnColor" />
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_below="@+id/tvSearchTitle" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/label_color"
             android:id="@+id/tvColorLabel"
+            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
             android:layout_below="@+id/tvSizeLabel"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
@@ -55,13 +68,15 @@
             android:gravity="center_vertical" />
 
         <Spinner
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
             android:id="@+id/spnColor"
             android:entries="@array/color_array"
             android:layout_below="@+id/spnSize"
-            android:layout_alignLeft="@+id/spnType"
-            android:layout_alignStart="@+id/spnType" />
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="20dp"
+            android:layout_marginEnd="20dp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -69,25 +84,31 @@
             android:text="@string/label_type"
             android:id="@+id/tvTypeLabel"
             android:layout_below="@+id/tvColorLabel"
+            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_alignBottom="@+id/spnType"
             android:gravity="center_vertical" />
 
         <Spinner
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
             android:id="@+id/spnType"
             android:entries="@array/type_array"
             android:layout_below="@+id/spnColor"
-            android:layout_alignLeft="@+id/etSite"
-            android:layout_alignStart="@+id/etSite" />
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="20dp"
+            android:layout_marginEnd="20dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/label_site"
             android:id="@+id/tvSiteLabel"
+            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
             android:layout_below="@+id/tvTypeLabel"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
@@ -95,24 +116,29 @@
             android:gravity="center_vertical" />
 
         <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
             android:id="@+id/etSite"
             android:hint="Enter site URL"
             android:textSize="15sp"
             android:layout_below="@+id/spnType"
-            android:layout_toRightOf="@+id/tvSiteLabel"
-            android:layout_toEndOf="@+id/tvSiteLabel"
-            android:layout_marginLeft="20dp" />
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="20dp"
+            android:layout_marginEnd="20dp" />
 
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
             android:text="@string/label_save"
+            android:background="#ff1881ad"
+            android:textColor="#ffffff"
+            android:textAllCaps="false"
+            android:textSize="20sp"
             android:id="@+id/btnSave"
             android:layout_below="@+id/etSite"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="40dp" />
+            android:layout_marginTop="20dp" />
 
 
     </RelativeLayout>
