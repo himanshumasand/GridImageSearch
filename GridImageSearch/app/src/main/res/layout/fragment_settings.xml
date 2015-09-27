@@ -1,106 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_view"
     android:layout_gravity="center"
-    android:paddingLeft="20dp"
-    android:paddingRight="20dp"
-    android:paddingTop="20dp"
-    android:paddingBottom="20dp"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content" >
+    android:layout_height="wrap_content"
+    android:layout_margin="6dp"
+    card_view:cardUseCompatPadding="true"
+    card_view:cardCornerRadius="2dp"
+    card_view:cardElevation="4dp">
 
-    <TextView
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/label_size"
-        android:id="@+id/tvSizeLabel"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignBottom="@+id/spnSize"
-        android:gravity="center_vertical" />
+        android:layout_height="wrap_content" >
 
-    <Spinner
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/spnSize"
-        android:spinnerMode="dropdown"
-        android:entries="@array/size_array"
-        android:layout_alignParentTop="true"
-        android:layout_alignLeft="@+id/spnColor"
-        android:layout_alignStart="@+id/spnColor" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/label_size"
+            android:id="@+id/tvSizeLabel"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignBottom="@+id/spnSize"
+            android:gravity="center_vertical" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/label_color"
-        android:id="@+id/tvColorLabel"
-        android:layout_below="@+id/tvSizeLabel"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignBottom="@+id/spnColor"
-        android:gravity="center_vertical" />
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/spnSize"
+            android:spinnerMode="dropdown"
+            android:entries="@array/size_array"
+            android:layout_alignParentTop="true"
+            android:layout_alignLeft="@+id/spnColor"
+            android:layout_alignStart="@+id/spnColor" />
 
-    <Spinner
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/spnColor"
-        android:entries="@array/color_array"
-        android:layout_below="@+id/spnSize"
-        android:layout_alignLeft="@+id/spnType"
-        android:layout_alignStart="@+id/spnType" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/label_color"
+            android:id="@+id/tvColorLabel"
+            android:layout_below="@+id/tvSizeLabel"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignBottom="@+id/spnColor"
+            android:gravity="center_vertical" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/label_type"
-        android:id="@+id/tvTypeLabel"
-        android:layout_below="@+id/tvColorLabel"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignBottom="@+id/spnType"
-        android:gravity="center_vertical" />
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/spnColor"
+            android:entries="@array/color_array"
+            android:layout_below="@+id/spnSize"
+            android:layout_alignLeft="@+id/spnType"
+            android:layout_alignStart="@+id/spnType" />
 
-    <Spinner
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/spnType"
-        android:entries="@array/type_array"
-        android:layout_below="@+id/spnColor"
-        android:layout_alignLeft="@+id/etSite"
-        android:layout_alignStart="@+id/etSite" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/label_type"
+            android:id="@+id/tvTypeLabel"
+            android:layout_below="@+id/tvColorLabel"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignBottom="@+id/spnType"
+            android:gravity="center_vertical" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/label_site"
-        android:id="@+id/tvSiteLabel"
-        android:layout_below="@+id/tvTypeLabel"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignBottom="@+id/etSite"
-        android:gravity="center_vertical" />
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/spnType"
+            android:entries="@array/type_array"
+            android:layout_below="@+id/spnColor"
+            android:layout_alignLeft="@+id/etSite"
+            android:layout_alignStart="@+id/etSite" />
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/etSite"
-        android:hint="Enter site URL"
-        android:textSize="15sp"
-        android:layout_below="@+id/spnType"
-        android:layout_toRightOf="@+id/tvSiteLabel"
-        android:layout_toEndOf="@+id/tvSiteLabel"
-        android:layout_marginLeft="20dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/label_site"
+            android:id="@+id/tvSiteLabel"
+            android:layout_below="@+id/tvTypeLabel"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignBottom="@+id/etSite"
+            android:gravity="center_vertical" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/label_save"
-        android:id="@+id/btnSave"
-        android:layout_below="@+id/etSite"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp" />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/etSite"
+            android:hint="Enter site URL"
+            android:textSize="15sp"
+            android:layout_below="@+id/spnType"
+            android:layout_toRightOf="@+id/tvSiteLabel"
+            android:layout_toEndOf="@+id/tvSiteLabel"
+            android:layout_marginLeft="20dp" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/label_save"
+            android:id="@+id/btnSave"
+            android:layout_below="@+id/etSite"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="40dp" />
 
 
-</RelativeLayout>
+    </RelativeLayout>
+</android.support.v7.widget.CardView>

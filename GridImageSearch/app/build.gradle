@@ -30,5 +30,7 @@ dependencies {
     compile 'org.apache.commons:commons-io:1.3.2'
     //Staggered Grid
     compile 'com.etsy.android.grid:library:1.0.5'
-
+    //Google Cards
+    compile 'com.android.support:cardview-v7:22.0.0'
+    compile 'com.android.support:recyclerview-v7:22.0.0'
 }
