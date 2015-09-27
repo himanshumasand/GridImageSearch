@@ -43,9 +43,13 @@ The following **additional** features are implemented:
 Here's a walkthrough of implemented user stories (It is a really long gif so please refresh the page to see it from the beginning):
 
 <img src='http://i.giphy.com/xTiTnoX8kXHK2KWP9S.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+
 In case the gif above doesn't work, try this link: https://media.giphy.com/media/xTiTnoX8kXHK2KWP9S/giphy.gif
 
+Screenshot for the staggered grid view
 <img src='http://i.imgur.com/uO1G9RH.png' title='Staggered GridView' width='' alt='Staggered GridView' />
+
+Screenshot when the phone is not connected to the internet
 <img src='http://i.imgur.com/LJoJfls.png' title='Offline Mode' width='' alt='Offline Mode' />
 
 
