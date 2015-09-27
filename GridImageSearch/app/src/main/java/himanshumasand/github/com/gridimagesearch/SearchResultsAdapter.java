@@ -54,6 +54,8 @@ public class SearchResultsAdapter extends ArrayAdapter<SearchResult> {
         Picasso.with(getContext()).load(result.getTbUrl()).into(viewHolder.image);
         viewHolder.image.setHeightRatio(getPositionRatio(position));
 
+        viewHolder.title.setText(result.getTitle());
+
         return convertView;
     }
 
