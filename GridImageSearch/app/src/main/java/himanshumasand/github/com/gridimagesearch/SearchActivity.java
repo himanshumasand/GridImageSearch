@@ -8,10 +8,10 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBarActivity;
-import android.os.Bundle;
 import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.Menu;
@@ -19,11 +19,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.etsy.android.grid.StaggeredGridView;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -55,7 +55,7 @@ public class SearchActivity extends ActionBarActivity implements SearchSettingsD
 
     private TextView tvRecentSeachesHeader;
     private ListView lvRecentSearches;
-    private GridView gvResults;
+    private StaggeredGridView gvResults;
     private ArrayList<SearchResult> searchResults;
     private SearchResultsAdapter searchResultsAdapter;
 
@@ -124,7 +124,7 @@ public class SearchActivity extends ActionBarActivity implements SearchSettingsD
     }
 
     private void setupGridView() {
-        gvResults = (GridView) findViewById(R.id.gvResults);
+        gvResults = (StaggeredGridView) findViewById(R.id.gvResults);
         searchResults = new ArrayList<>();
         searchResultsAdapter = new SearchResultsAdapter(this, searchResults);
         gvResults.setAdapter(searchResultsAdapter);
@@ -335,6 +335,7 @@ public class SearchActivity extends ActionBarActivity implements SearchSettingsD
             @Override
             public void onBitmapFailed(Drawable errorDrawable) {
                 // use error drawable if desired
+                setupViews();
             }
 
             @Override
