@@ -43,7 +43,7 @@ The following **additional** features are implemented:
 
 Here's a walkthrough of implemented user stories (It is a really long gif so please refresh the page to see it from the beginning):
 
-<img src='//giphy.com/embed/3oEdv8bUfxqtMSWGas' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='http://i.giphy.com/3oEdv8bUfxqtMSWGas.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 
 Screenshot when the phone is not connected to the internet
