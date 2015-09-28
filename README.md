@@ -45,6 +45,7 @@ Here's a walkthrough of implemented user stories (It is a really long gif so ple
 
 <img src='http://i.giphy.com/3oEdv8bUfxqtMSWGas.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
+In case the above gif doesn't work, please use this link: http://i.giphy.com/3oEdv8bUfxqtMSWGas.gif
 
 Screenshot when the phone is not connected to the internet
 
