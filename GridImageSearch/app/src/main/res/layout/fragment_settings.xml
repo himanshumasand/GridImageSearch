@@ -24,10 +24,9 @@
             android:text="Search Filter"
             android:background="#ff1881ad"
             android:textColor="#ffffff"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:textStyle="bold"
             android:id="@+id/tvSearchTitle"
-            android:paddingLeft="20dp"
             android:gravity="center"
             android:layout_marginBottom="20dp"
             android:layout_centerHorizontal="true" />

@@ -2,7 +2,7 @@
 
 **Grid Image Search** is an android app that allows a user to search for images on web using simple filters. The app utilizes [Google Image Search API](https://developers.google.com/image-search/). Please note that API has been officially deprecated as of May 26, 2011.
 
-Time spent: **20** hours spent in total
+Time spent: **25** hours spent in total
 
 ## User Stories
 
@@ -37,19 +37,17 @@ The following **additional** features are implemented:
 * [x] Clicking any image gives details about the image. It also links to the webpage and full size image url by opening a browser using *implicit intents*.
 * [x] Starting the app searches for a random scenery image and sets that as the background image of the activity
 * [x] Saves recent searches and displays them as a list in the main activity. Clicking those list items performs that search again. 
+* [x] Used Android's CardView class to show search results within cards having shadows
 
 ## Video Walkthrough 
 
 Here's a walkthrough of implemented user stories (It is a really long gif so please refresh the page to see it from the beginning):
 
-<img src='http://i.giphy.com/xTiTnoX8kXHK2KWP9S.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='//giphy.com/embed/3oEdv8bUfxqtMSWGas' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
-In case the gif above doesn't work, try this link: https://media.giphy.com/media/xTiTnoX8kXHK2KWP9S/giphy.gif
-
-Screenshot for the staggered grid view
-<img src='http://i.imgur.com/uO1G9RH.png' title='Staggered GridView' width='' alt='Staggered GridView' />
 
 Screenshot when the phone is not connected to the internet
+
 <img src='http://i.imgur.com/LJoJfls.png' title='Offline Mode' width='' alt='Offline Mode' />
 
 
@@ -64,6 +62,7 @@ Adding background images using picasso was a big challenge. Had to do a bit of r
 - [Android Async HTTP](https://github.com/loopj/android-async-http) - Simple asynchronous HTTP requests with JSON parsing
 - [Picasso](http://square.github.io/picasso/) - Image loading and caching library for Android
 - StaggeredGridView
+- CardView
 
 ## License
 
